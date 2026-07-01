@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proposing Space Dilation</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Courier New', monospace;
+      background: #080818;
+      color: #e0e0f0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      padding: 24px;
+    }
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #9999cc;
+      text-align: center;
+    }
+    .subtitle {
+      font-size: 0.85rem;
+      font-weight: 400;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #555577;
+      text-align: center;
+    }
+    #canvas {
+      border-radius: 10px;
+      box-shadow: 0 0 60px rgba(120,60,255,0.25), 0 20px 60px rgba(0,0,0,0.8);
+      cursor: default;
+      max-width: 100%;
+    }
+    .stats {
+      display: flex;
+      background: rgba(0,0,20,0.6);
+      border: 1px solid rgba(100,80,200,0.2);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .stat {
+      padding: 12px 28px;
+      text-align: center;
+      border-right: 1px solid rgba(100,80,200,0.15);
+      width: 200px;
+      flex-shrink: 0;
+      box-sizing: border-box;
+    }
+    .stat:last-child { border-right: none; }
+    .stat-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #666688;
+      margin-bottom: 5px;
+    }
+    .stat-value {
+      font-size: 16px;
+      font-weight: 700;
+      font-family: 'Courier New', monospace;
+      white-space: nowrap;
+    }
+    .hint { font-size: 11px; color: #333355; letter-spacing: 0.05em; }
+    .theory {
+      max-width: 820px;
+      background: rgba(0,0,20,0.5);
+      border: 1px solid rgba(100,80,200,0.18);
+      border-radius: 10px;
+      padding: 28px 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .theory-heading {
+      font-size: 0.75rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #7766aa;
+      margin-bottom: 2px;
+    }
+    .theory p {
+      font-size: 0.82rem;
+      line-height: 1.75;
+      color: #8888aa;
+    }
+    .theory strong { color: #aaaacc; font-weight: 600; }
+    .theory em { color: #cc88ff; font-style: normal; letter-spacing: 0.03em; }
+    .theory table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.78rem;
+      margin: 4px 0;
+    }
+    .theory th {
+      background: rgba(100,80,200,0.15);
+      color: #9988cc;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-size: 0.68rem;
+      padding: 7px 14px;
+      border: 1px solid rgba(100,80,200,0.2);
+      text-align: left;
+    }
+    .theory td {
+      padding: 7px 14px;
+      border: 1px solid rgba(100,80,200,0.12);
+      color: #8888aa;
+      line-height: 1.5;
+    }
+    .theory tr:nth-child(even) td { background: rgba(100,80,200,0.05); }
+    .theory td:first-child { color: #7766aa; font-weight: 600; }
+    .theory { position: relative; }
+    #theory-toggle {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: rgba(80,40,160,0.4);
+      border: 1px solid rgba(180,120,255,0.5);
+      border-radius: 6px;
+      color: #cc99ff;
+      font-family: 'Courier New', monospace;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      cursor: pointer;
+      outline: none;
+    }
+    #theory-toggle:hover {
+      border-color: rgba(200,140,255,0.8);
+      background: rgba(100,50,200,0.5);
+    }
+    .theory[data-mode="scientific"] .plain { display: none; }
+    .theory[data-mode="plain"] .scientific { display: none; }
+    .mode-bar {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    .mode-bar-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(100,60,200,0.12);
+      border: 1px solid rgba(150,100,255,0.3);
+      border-radius: 10px;
+      padding: 8px 18px;
+    }
+    .mode-bar-label {
+      font-size: 0.7rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #9988cc;
+    }
+    #mode-select {
+      background: rgba(80,40,160,0.5);
+      border: 1px solid rgba(180,120,255,0.6);
+      border-radius: 6px;
+      color: #ddbbff;
+      font-family: 'Courier New', monospace;
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 6px 18px;
+      cursor: pointer;
+      letter-spacing: 1px;
+      outline: none;
+      appearance: none;
+      -webkit-appearance: none;
+      box-shadow: 0 0 12px rgba(160,80,255,0.25);
+    }
+    #mode-select:hover {
+      border-color: rgba(200,140,255,0.9);
+      box-shadow: 0 0 18px rgba(180,100,255,0.45);
+    }
+  </style>
+</head>
+<body>
+  <div class="mode-bar">
+    <h1 id="main-title">Proposing Space Dilation</h1>
+    <p class="subtitle">and its connection to Length Contraction</p>
+    <div class="mode-bar-controls">
+      <span class="mode-bar-label">Switch Model</span>
+      <select id="mode-select">
+        <option value="length">Length Contraction</option>
+        <option value="space">Space Dilation</option>
+      </select>
+    </div>
+  </div>
+  <canvas id="canvas"></canvas>
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-label" id="lbl-v">Speed  v</div>
+      <div class="stat-value" id="val-v" style="color:#cc66ff">—</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label" id="lbl-beta">β = v / c</div>
+      <div class="stat-value" id="val-beta" style="color:#cc66ff">—</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label" id="lbl-gamma">Lorentz  γ</div>
+      <div class="stat-value" id="val-gamma" style="color:#55ccff">—</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label" id="lbl-proper">Proper Speed  γv</div>
+      <div class="stat-value" id="val-proper" style="color:#33ff88">—</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label" id="lbl-length">Length  L / L₀</div>
+      <div class="stat-value" id="val-length" style="color:#ff5555">—</div>
+    </div>
+    <div class="stat" style="padding: 10px 20px; width: 244px;">
+      <div class="stat-label" id="lbl-car">Contracted Shape</div>
+      <canvas id="car-canvas" width="200" height="80" style="display:block; margin-top:6px;"></canvas>
+    </div>
+  </div>
+  <p class="hint">Drag purple (β) or green (γv) to set speed · the arc is the Lorentz curve · green → ∞ as v → c</p>
+
+  <div class="theory" data-mode="scientific">
+    <button id="theory-toggle" onclick="toggleTheory()">Plain Language</button>
+
+    <!-- DEFINITION -->
+    <p class="theory-heading scientific">Definition</p>
+    <p class="theory-heading plain">What Is Space Dilation?</p>
+
+    <p class="scientific">
+      I define <em>Space Dilation</em> as the phenomenon by which a measurement perpendicular
+      to an observer's line of sight — of true magnitude H₀ — is observed to have apparent
+      magnitude H_obs&nbsp;=&nbsp;H₀&nbsp;cos&nbsp;θ, where θ is the angle subtended between the
+      perpendicular axis and the line connecting observer to object. The observed fraction satisfies
+      sin²θ&nbsp;+&nbsp;(H_obs/H₀)²&nbsp;=&nbsp;1. I distinguish two distances: the
+      <strong>observed distance</strong> D (the projected horizontal separation, bounded) and the
+      <strong>proper distance</strong> D/cos&nbsp;θ (the true line-of-sight distance, unbounded).
+    </p>
+    <p class="plain">
+      Space Dilation is my term for something observable with the naked eye: a measurement
+      perpendicular to your line of sight — the height of a building, the width of a door —
+      appears smaller as it gets farther away, and it does so along a precise mathematical curve.
+      Not just "smaller because it's far" — but smaller by an exact fraction that traces the same
+      quarter-circle arc as Lorentz length contraction in special relativity. I separate two kinds
+      of distance: the <strong>observed distance</strong> D and the
+      <strong>proper distance</strong> D/cos&nbsp;θ, just as
+      special relativity separates observed speed from proper velocity.
+    </p>
+
+    <!-- ISOMORPHISM -->
+    <p class="theory-heading scientific" style="margin-top: 8px;">Isomorphism with Length Contraction</p>
+    <p class="theory-heading plain" style="margin-top: 8px;">The Connection to Length Contraction</p>
+
+    <p class="scientific">
+      Lorentz length contraction states that the observed length of an object moving at coordinate
+      speed v is L&nbsp;=&nbsp;L₀√(1&nbsp;−&nbsp;v²/c²), satisfying
+      (v/c)²&nbsp;+&nbsp;(L/L₀)²&nbsp;=&nbsp;1. The coordinate speed v (bounded by c) and the
+      proper velocity γv (unbounded) stand in the same relationship as observed distance D and
+      proper distance D/cos&nbsp;θ: the proper quantity is the observed quantity scaled by the
+      same factor (γ&nbsp;=&nbsp;1/cos&nbsp;θ) that governs the spatial compression. Both systems
+      are described by the single relation <em>f(x)&nbsp;=&nbsp;1/√(1&nbsp;+&nbsp;x²)</em>,
+      where x is the normalized proper quantity and f is the observed fraction.
+    </p>
+    <p class="plain">
+      Length contraction says a fast-moving object gets shorter in the direction it's travelling.
+      The object also has a proper velocity — its true speed through its own time — which is larger
+      than what an observer measures, because the object's clock runs slow. Space Dilation has the
+      exact same structure. The distance you observe (D) is bounded, just as observed speed is
+      bounded by c. The proper distance (D/cos&nbsp;θ) is unbounded, growing without limit — just
+      as proper velocity grows without limit. Both follow the identical equation. Both trace the
+      same arc. The graph above shows both.
+    </p>
+
+    <table>
+      <tr>
+        <th></th>
+        <th>Length Contraction</th>
+        <th>Space Dilation</th>
+      </tr>
+      <tr>
+        <td>Unit / arc radius</td>
+        <td>c — speed of light</td>
+        <td>H₀ — true perpendicular size</td>
+      </tr>
+      <tr>
+        <td>Observed quantity</td>
+        <td>v — coordinate speed (bounded by c)</td>
+        <td>D — observed distance (bounded by H₀)</td>
+      </tr>
+      <tr>
+        <td>Proper quantity</td>
+        <td>γv — proper velocity (unbounded)</td>
+        <td>D / cos θ — proper distance (unbounded)</td>
+      </tr>
+      <tr>
+        <td>Normalized observed</td>
+        <td>β = v/c = sin θ</td>
+        <td>sin θ = D / √(D² + H₀²)</td>
+      </tr>
+      <tr>
+        <td>Observed fraction</td>
+        <td>L / L₀ = cos θ</td>
+        <td>H_obs / H₀ = cos θ</td>
+      </tr>
+      <tr>
+        <td>Scale factor</td>
+        <td>γ = 1 / cos θ</td>
+        <td>1 / cos θ</td>
+      </tr>
+    </table>
+
+    <!-- SPACE-TIME COUPLING -->
+    <p class="theory-heading scientific" style="margin-top: 8px;">Space-Time Coupling</p>
+    <p class="theory-heading plain" style="margin-top: 8px;">What Happens to Time</p>
+
+    <p class="scientific">
+      In each system, the arc intersection encodes a spatial effect and a temporal effect
+      simultaneously, determined by the same angle θ. The character of the temporal coupling
+      differs between the two systems. In length contraction, time dilation is
+      <strong>multiplicative</strong>: the moving object's clock rate is reduced by a factor of
+      1/γ, where γ is read directly from the arc. In space dilation, the temporal effect is
+      <strong>additive</strong>: the observation is displaced D/c seconds into the past —
+      a look-back time that is itself determined by the same arc intersection that sets the
+      spatial scaling. In both cases, a single geometric quantity (the arc angle θ) simultaneously
+      determines what happens to the observed spatial measurement and what happens to time.
+    </p>
+    <p class="plain">
+      In both systems, the arc point sets a spatial effect and a time effect at the same time —
+      you get both from one angle, or neither. In length contraction, as an object moves faster
+      it gets shorter AND its clock slows. Those two things are locked together by the arc. In
+      Space Dilation, as an object gets farther away it appears smaller AND you're seeing it
+      further into its past, because light takes D/c seconds to reach you. That look-back time
+      is set by the same arc point that sets the spatial scaling. The difference is in how time
+      is affected: motion changes time's <strong>rate</strong>. Distance only shifts time's
+      <strong>starting point</strong> — the rate stays completely intact.
+    </p>
+
+    <table>
+      <tr>
+        <th></th>
+        <th>Length Contraction</th>
+        <th>Space Dilation</th>
+      </tr>
+      <tr>
+        <td>Spatial effect</td>
+        <td>L / L₀ = cos θ</td>
+        <td>H_obs / H₀ = cos θ</td>
+      </tr>
+      <tr>
+        <td>Temporal effect</td>
+        <td>Clock rate scales by 1/γ = cos θ</td>
+        <td>Observation origin shifts by D/c</td>
+      </tr>
+      <tr>
+        <td>Character</td>
+        <td>Multiplicative — rate changes</td>
+        <td>Additive — origin shifts</td>
+      </tr>
+      <tr>
+        <td>Determined by</td>
+        <td>Arc angle θ</td>
+        <td>Arc angle θ</td>
+      </tr>
+    </table>
+
+    <!-- PROPOSAL -->
+    <p class="theory-heading scientific" style="margin-top: 8px;">Proposal</p>
+    <p class="theory-heading plain" style="margin-top: 8px;">The Proposal</p>
+
+    <p class="scientific">
+      I propose that Space Dilation is not a separate geometric phenomenon that happens to share
+      the mathematics of Lorentz Length Contraction — it is the same phenomenon, expressed without
+      velocity across static spatial separation. Length contraction is difficult to observe directly:
+      it requires relative velocities approaching c, which lie far outside ordinary experience.
+      Space Dilation, I conjecture, is the same structural effect with no velocity term —
+      observable in everyday perception whenever a measurement perpendicular to the line of sight
+      is viewed at a distance. I am not proposing an analogy. I am proposing that this
+      equivalence reveals an intricate relationship between static space and motion: the same arc
+      that governs what happens to measurement under relativistic velocity also governs what happens
+      to measurement under spatial separation alone, with no motion required. If correct, this
+      suggests that the relativistic structure of observation is not exclusive to motion — it is a
+      property of space itself.
+    </p>
+    <p class="plain">
+      I'm proposing that Space Dilation isn't geometry that happens to look like special relativity.
+      It IS the same relativistic phenomenon — showing up in a domain where there is no motion at
+      all. Length contraction is nearly impossible to observe because you need to be moving close
+      to the speed of light. Space Dilation shows the same effect every time you look across a
+      distance. I am not saying these are analogous. I am saying they are the same thing. And if
+      that's right, then what we've been calling ordinary perspective is actually a relativistic
+      effect — one that reveals the same structure in static space that special relativity reveals
+      under motion.
+    </p>
+
+    <p class="scientific">
+      I further note a striking asymmetry in how each domain treats time. When motion is present,
+      time is attenuated — the moving object's clock runs at a reduced rate (1/γ &lt; 1), and that
+      rate diminishes further as velocity increases. Motion appears to act against the passage of
+      time, progressively suppressing it as the arc angle grows. When motion is absent, as in Space
+      Dilation, time is not attenuated at all — it is merely displaced. The observer receives the
+      same undiminished flow of time, offset by D/c into the past. This distinction — between time
+      that is <strong>diminished by motion</strong> and time that is <strong>shifted by distance</strong>
+      — may itself be significant: it suggests that motion and static spatial separation engage
+      with time in fundamentally different ways, even as they produce identical spatial compressions
+      under the same arc.
+    </p>
+    <p class="plain">
+      There's something striking about how time behaves differently in each case. When an object
+      is in motion, time is actually reduced — it flows more slowly, and that slowdown increases
+      with speed. Motion seems to consume time's force. At the speed of light, time would stop
+      entirely — all of that force has transferred to motion. When an object is simply far away
+      and not moving, time isn't reduced at all. You're just seeing it as it was D/c seconds ago.
+      The full force of time is intact — it's only displaced. Motion redistributes time.
+      Distance only borrows from it.
+    </p>
+
+    <p class="scientific">
+      This asymmetry connects to a deeper conservation principle. In special relativity, every
+      object moves through spacetime at a fixed total rate — the speed of light c — partitioned
+      between time and space. A stationary object expends its full allocation on the passage of
+      time. As velocity increases, that allocation transfers progressively to spatial motion,
+      reducing the rate of proper time accordingly. At v&nbsp;=&nbsp;c, the transfer is complete:
+      the entire allocation has become motion, and proper time ceases. The arc encodes this
+      conservation exactly: cos&nbsp;θ&nbsp;=&nbsp;1/γ is the fraction of the allocation remaining
+      in time; sin&nbsp;θ&nbsp;=&nbsp;v/c is the fraction that has become motion. Their squares
+      sum to unity — nothing is created or lost, only redistributed.
+    </p>
+    <p class="plain">
+      Think of it as a budget. Every object has a fixed allocation — equal to c — split between
+      how fast it moves through space and how fast it moves through time. Stationary: the entire
+      budget goes to time, which flows at full force. As it speeds up, budget shifts to motion
+      and time slows proportionally. At the speed of light, the budget is entirely spent on
+      motion and time stops. The arc on this graph IS that budget: cos&nbsp;θ is what remains in
+      time, sin&nbsp;θ is what has become motion. They always add up to one unit — nothing
+      created, nothing lost.
+    </p>
+
+    <p class="scientific">
+      Under this interpretation, Space Dilation occupies a distinct position: it produces the same
+      spatial compression as length contraction while leaving the temporal allocation entirely
+      intact. Static spatial separation does not draw from the spacetime budget — it compresses
+      measurement without consuming any of time's force. I conjecture that this reveals something
+      fundamental about the relationship between space and motion: that the arc governing
+      relativistic observation under velocity is the same arc governing spatial observation at
+      rest, but the two domains make entirely different demands on time. One redistributes it.
+      The other leaves it whole.
+    </p>
+    <p class="plain">
+      What makes Space Dilation remarkable under this view is that it achieves the same spatial
+      compression as length contraction while leaving that budget completely untouched. Distance
+      doesn't draw from the spacetime allocation. It compresses measurement without spending any
+      of time's force. The arc appears — the same arc — but this time, time doesn't pay for it.
+    </p>
+
+    <p>
+      To my knowledge, this identification has not been previously proposed in the literature.
+    </p>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    const W = 900, H = 390;
+    canvas.width = W;
+    canvas.height = H;
+
+    const PL = 62, PR = 24, PT = 28, PB = 72;
+    const GW = W - PL - PR;
+    const GH = H - PT - PB;
+    const R = GH;  // radius in pixels = c in unit space
+
+    const C = 3e8;  // speed of light m/s (display only)
+    let mode = 'length';
+
+    // State: greenX = γv/c (proper velocity in units of c), 0 → ∞
+    // This is the free input marker — it can go off-screen.
+    let greenX = 1.0;  // starts at γv = c  →  β = 1/√2 ≈ 0.707c
+
+    // Math
+    // purple x = β = v/c  =  greenX / √(greenX² + 1)
+    // purple y = L/L₀     =  1      / √(greenX² + 1)
+    const pX = g => g / Math.sqrt(g * g + 1);
+    const pY = g => 1 / Math.sqrt(g * g + 1);
+    // inverse: given purple x-position p, recover greenX
+    const greenFromPX = p => (p >= 1 ? 1e9 : p / Math.sqrt(1 - p * p));
+
+    // Coordinate transforms (unit 0 = origin, 1 = c)
+    const cpx = u => PL + u * R;
+    const cpy = u => PT + GH - u * R;
+    const upx = px => (px - PL) / R;
+
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+
+      // Dark background
+      ctx.fillStyle = '#0b0b1c';
+      ctx.fillRect(0, 0, W, H);
+
+      const px = pX(greenX);   // β = v/c
+      const py = pY(greenX);   // L/L₀
+      const gamma = 1 / Math.max(py, 1e-12);
+      const theta = Math.atan2(1, greenX);
+
+      // ── Grid ──────────────────────────────────────────────────────────────
+      ctx.strokeStyle = '#16163a';
+      ctx.lineWidth = 1;
+      [0, 0.25, 0.5, 0.75, 1.0].forEach(b => {
+        ctx.beginPath(); ctx.moveTo(cpx(b), PT); ctx.lineTo(cpx(b), PT + GH); ctx.stroke();
+      });
+      [0, 0.25, 0.5, 0.75, 1].forEach(u => {
+        ctx.beginPath(); ctx.moveTo(PL, cpy(u)); ctx.lineTo(W - PR, cpy(u)); ctx.stroke();
+      });
+
+      // ── Axes ──────────────────────────────────────────────────────────────
+      ctx.strokeStyle = '#44445a';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(PL, PT);
+      ctx.lineTo(PL, PT + GH);
+      ctx.lineTo(W - PR, PT + GH);
+      ctx.stroke();
+
+      // X ticks
+      ctx.fillStyle = '#666688';
+      ctx.font = '11px Courier New';
+      ctx.textAlign = 'center';
+      [0, 0.25, 0.5, 0.75, 1.0].forEach(b => {
+        const lbl = mode === 'length'
+          ? (b === 0 ? '0' : b === 1.0 ? 'c' : b.toFixed(2) + 'c')
+          : (b === 0 ? '0' : b.toFixed(2));
+        ctx.fillText(lbl, cpx(b), PT + GH + 16);
+        ctx.beginPath(); ctx.moveTo(cpx(b), PT + GH); ctx.lineTo(cpx(b), PT + GH + 5);
+        ctx.strokeStyle = '#44445a'; ctx.lineWidth = 1; ctx.stroke();
+      });
+
+      // Y ticks
+      ctx.textAlign = 'right';
+      [['0%',0],['25%',0.25],['50%',0.5],['75%',0.75],['100%',1]].forEach(([lbl, u]) => {
+        ctx.fillStyle = '#666688';
+        ctx.font = '11px Courier New';
+        ctx.fillText(lbl, PL - 8, cpy(u) + 4);
+        ctx.beginPath(); ctx.moveTo(PL, cpy(u)); ctx.lineTo(PL - 5, cpy(u));
+        ctx.strokeStyle = '#44445a'; ctx.lineWidth = 1; ctx.stroke();
+      });
+
+      // Axis titles
+      ctx.fillStyle = '#888899';
+      ctx.font = '11px Courier New';
+      ctx.textAlign = 'center';
+      ctx.fillText(
+        mode === 'length' ? 'v / c  ·  coordinate speed (β)' : 'sin θ  ·  normalized apparent distance',
+        PL + GW / 2, H - 10);
+      ctx.save();
+      ctx.translate(13, PT + GH / 2);
+      ctx.rotate(-Math.PI / 2);
+      ctx.fillText(
+        mode === 'length' ? 'L / L₀  ·  length remaining' : 'H / H₀  ·  apparent size',
+        0, 0);
+      ctx.restore();
+
+      // ── Red arc (glowing) ─────────────────────────────────────────────────
+      ctx.strokeStyle = '#ff3333';
+      ctx.lineWidth = 2.5;
+      ctx.shadowColor = '#ff2222';
+      ctx.shadowBlur = 12;
+      ctx.beginPath();
+      ctx.arc(PL, PT + GH, R, -Math.PI / 2, 0);
+      ctx.stroke();
+      ctx.shadowBlur = 0;
+
+      // Arc label
+      ctx.fillStyle = '#ff5555';
+      ctx.font = '11px Courier New';
+      ctx.textAlign = 'left';
+      ctx.fillText(
+        mode === 'length' ? 'β² + (L/L₀)² = 1' : 'sin²θ + (H/H₀)² = 1',
+        cpx(0.54), cpy(0.93));
+
+      // Limit annotation at arc x-intercept
+      ctx.fillStyle = '#ff3333';
+      ctx.font = 'bold 12px Courier New';
+      ctx.textAlign = 'center';
+      ctx.fillText(mode === 'length' ? 'v = c' : 'D → ∞', cpx(1), cpy(0) + 26);
+
+      // ── Equations panel (mode-conditional) ───────────────────────────────
+      const eqX = PL + R * 1.38;
+      const eqY = PT + 18;
+      ctx.textAlign = 'left';
+
+      if (mode === 'length') {
+        ctx.fillStyle = '#3a3a5a';
+        ctx.font = '9px Courier New';
+        ctx.fillText('LORENTZ  TRANSFORMATION', eqX, eqY);
+
+        ctx.fillStyle = '#7766aa';
+        ctx.font = '14px Courier New';
+        ctx.fillText("x' = γ(x − vt)", eqX, eqY + 26);
+        ctx.fillText("t' = γ(t − vx/c²)", eqX, eqY + 48);
+
+        ctx.strokeStyle = '#2a2a44';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(eqX, eqY + 60); ctx.lineTo(eqX + 195, eqY + 60);
+        ctx.stroke();
+
+        ctx.font = '13px Courier New';
+        ctx.fillStyle = '#55ccff';
+        ctx.fillText('γ = ' + (gamma > 9999 ? '∞' : gamma.toFixed(4)), eqX, eqY + 78);
+        ctx.fillStyle = '#cc66ff';
+        ctx.fillText('β = ' + (px * 100).toFixed(2) + '% c', eqX, eqY + 96);
+
+      } else {
+        ctx.fillStyle = '#3a3a5a';
+        ctx.font = '9px Courier New';
+        ctx.fillText('SPACE  DILATION', eqX, eqY);
+
+        ctx.fillStyle = '#7766aa';
+        ctx.font = '14px Courier New';
+        ctx.fillText('H_obs = H₀ · cos θ', eqX, eqY + 26);
+        ctx.fillText('sin²θ + (H/H₀)² = 1', eqX, eqY + 48);
+
+        ctx.strokeStyle = '#2a2a44';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(eqX, eqY + 60); ctx.lineTo(eqX + 195, eqY + 60);
+        ctx.stroke();
+
+        ctx.font = '13px Courier New';
+        ctx.fillStyle = '#55ccff';
+        ctx.fillText('scale = ' + (gamma > 9999 ? '∞' : gamma.toFixed(4)), eqX, eqY + 78);
+        ctx.fillStyle = '#cc66ff';
+        ctx.fillText('θ = ' + (theta * 180 / Math.PI).toFixed(1) + '°', eqX, eqY + 96);
+      }
+
+      // ── Angle arc at origin ────────────────────────────────────────────────
+      const aR = 52;
+      ctx.strokeStyle = 'rgba(204,68,255,0.35)';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.arc(PL, PT + GH, aR, 0, -theta, true);
+      ctx.stroke();
+      const midA = -theta / 2;
+      ctx.fillStyle = '#cc66ff';
+      ctx.font = 'italic bold 15px serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('θ', PL + (aR + 14) * Math.cos(midA), (PT + GH) + (aR + 14) * Math.sin(midA));
+
+      // ── Blue line: from origin to (γv/c, 1) (glowing) ────────────────────
+      ctx.strokeStyle = '#4466ff';
+      ctx.lineWidth = 2;
+      ctx.shadowColor = '#3355ee';
+      ctx.shadowBlur = 8;
+      ctx.beginPath();
+      ctx.moveTo(cpx(0), cpy(0));
+      ctx.lineTo(cpx(greenX), cpy(1));
+      ctx.stroke();
+      ctx.shadowBlur = 0;
+
+      // Green top dot (if on screen, glowing)
+      if (cpx(greenX) < W - PR) {
+        ctx.fillStyle = '#33ff88';
+        ctx.shadowColor = '#22ff77';
+        ctx.shadowBlur = 10;
+        ctx.beginPath();
+        ctx.arc(cpx(greenX), cpy(1), 4, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.shadowBlur = 0;
+      }
+
+      // ── Purple vertical line (glowing) ────────────────────────────────────
+      ctx.strokeStyle = '#cc44ff';
+      ctx.lineWidth = 2;
+      ctx.shadowColor = '#cc44ff';
+      ctx.shadowBlur = 8;
+      ctx.setLineDash([6, 4]);
+      ctx.beginPath();
+      ctx.moveTo(cpx(px), cpy(0));
+      ctx.lineTo(cpx(px), PT);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.shadowBlur = 0;
+
+      // ── Green vertical line (glowing, if on screen) ───────────────────────
+      if (cpx(greenX) < W - PR) {
+        ctx.strokeStyle = '#33ff88';
+        ctx.lineWidth = 2;
+        ctx.shadowColor = '#22ff77';
+        ctx.shadowBlur = 8;
+        ctx.setLineDash([6, 4]);
+        ctx.beginPath();
+        ctx.moveTo(cpx(greenX), cpy(0));
+        ctx.lineTo(cpx(greenX), PT);
+        ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.shadowBlur = 0;
+      }
+
+      // ── Arc intersection dot (white glow) ─────────────────────────────────
+      ctx.fillStyle = '#ffffff';
+      ctx.shadowColor = '#ffffff';
+      ctx.shadowBlur = 18;
+      ctx.beginPath();
+      ctx.arc(cpx(px), cpy(py), 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.shadowBlur = 0;
+
+      // Intersection label
+      ctx.fillStyle = '#cc88ff';
+      ctx.font = '11px Courier New';
+      ctx.textAlign = 'left';
+      ctx.fillText(
+        mode === 'length'
+          ? `(${px.toFixed(3)}c,  ${(py * 100).toFixed(1)}%)`
+          : `(sin θ = ${px.toFixed(3)},  ${(py * 100).toFixed(1)}%)`,
+        cpx(px) + 10, cpy(py) - 8);
+
+      // ── Markers below x-axis ──────────────────────────────────────────────
+      const MY = PT + GH + 46;
+      drawMarker(cpx(px), MY, '#cc44ff', mode === 'length' ? 'v' : 'D');
+      if (cpx(greenX) < W - PR + 16) {
+        drawMarker(cpx(greenX), MY, '#33ff88', mode === 'length' ? 'γv' : 'D/H₀');
+      }
+
+      // ── Stats ─────────────────────────────────────────────────────────────
+      if (mode === 'length') {
+        document.getElementById('lbl-v').textContent      = 'Speed  v';
+        document.getElementById('lbl-beta').textContent   = '% of  c';
+        document.getElementById('lbl-gamma').textContent  = 'Lorentz  γ';
+        document.getElementById('lbl-proper').textContent = 'Proper Speed  γv';
+        document.getElementById('lbl-length').textContent = 'Length  L / L₀';
+        document.getElementById('lbl-car').textContent    = 'Length Contraction';
+        document.getElementById('val-v').textContent      = formatSpeed(px * C);
+        document.getElementById('val-beta').textContent   = (px * 100).toFixed(2) + '% c';
+        document.getElementById('val-gamma').textContent  = gamma > 9999 ? '∞' : gamma.toFixed(3);
+        document.getElementById('val-proper').textContent = greenX > 9999 ? '∞' : formatSpeed(greenX * C);
+        document.getElementById('val-length').textContent = (py * 100).toFixed(2) + '%';
+      } else {
+        document.getElementById('lbl-v').textContent      = 'Distance  D / H₀';
+        document.getElementById('lbl-beta').textContent   = 'sin  θ';
+        document.getElementById('lbl-gamma').textContent  = 'Scale  Factor';
+        document.getElementById('lbl-proper').textContent = 'View  Angle  θ';
+        document.getElementById('lbl-length').textContent = 'Apparent  H / H₀';
+        document.getElementById('lbl-car').textContent    = 'Observed Scale';
+        document.getElementById('val-v').textContent      = greenX > 9999 ? '∞' : greenX.toFixed(3);
+        document.getElementById('val-beta').textContent   = px.toFixed(4);
+        document.getElementById('val-gamma').textContent  = gamma > 9999 ? '∞' : gamma.toFixed(3);
+        document.getElementById('val-proper').textContent = (theta * 180 / Math.PI).toFixed(1) + '°';
+        document.getElementById('val-length').textContent = (py * 100).toFixed(2) + '%';
+      }
+      drawCar(py);
+    }
+
+    function formatSpeed(v) {
+      if (v >= 1e8) return (v / 1e8).toFixed(3) + ' × 10⁸ m/s';
+      if (v >= 1e6) return (v / 1e6).toFixed(2) + ' × 10⁶ m/s';
+      return v.toFixed(0) + ' m/s';
+    }
+
+    function drawCar(factor) {
+      const cc = document.getElementById('car-canvas').getContext('2d');
+      const CW = 200, CH = 80;
+      cc.clearRect(0, 0, CW, CH);
+
+      function drawShape(f, alpha, showLines) {
+        const cxc = CW / 2;
+        const hw  = 70;
+        const bb  = CH - 18;
+        const bt0 = bb - 20;
+        const ry0 = bt0 - 15;
+        const wR  = 10;
+        const fwx = -46;  // front wheel on left (car faces left)
+        const rwx =  46;  // rear wheel on right
+        const wy  = bb + 4;
+
+        const tx  = x => cxc + x * f;
+        const bt  = mode === 'length' ? bt0          : bb - (bb - bt0) * f;
+        const ry  = mode === 'length' ? ry0          : bb - (bb - ry0) * f;
+        const wxR = Math.max(wR * f, 0.5);
+        const wyR = mode === 'length' ? wR : Math.max(wR * f, 0.5);
+
+        // Motion lines trailing behind car (length contraction, contracted car only)
+        if (showLines && mode === 'length') {
+          cc.globalAlpha = alpha * 0.4;
+          cc.strokeStyle = '#7799ee';
+          cc.lineWidth = 1.5;
+          cc.lineCap = 'round';
+          const lineX = tx(-hw) - 6;
+          [[22, bt0 + 5], [34, (bt0 + bb) / 2], [22, bb - 9]].forEach(([len, y]) => {
+            cc.beginPath();
+            cc.moveTo(lineX, y);
+            cc.lineTo(lineX - len, y);
+            cc.stroke();
+          });
+        }
+
+        cc.globalAlpha = alpha;
+        cc.strokeStyle = '#7799ee';
+        cc.lineWidth = 1.8;
+        cc.lineJoin = 'round';
+        cc.lineCap = 'round';
+
+        // Body silhouette — front on left, back on right
+        cc.beginPath();
+        cc.moveTo(tx(hw),  bb);
+        cc.lineTo(tx(hw),  bt);
+        cc.lineTo(tx(28),  bt);
+        cc.lineTo(tx(18),  ry);
+        cc.lineTo(tx(-22), ry);
+        cc.lineTo(tx(-hw), bt);
+        cc.lineTo(tx(-hw), bb);
+        cc.stroke();
+
+        // Bottom with wheel arch gaps
+        cc.beginPath();
+        cc.moveTo(tx(-hw),       bb); cc.lineTo(tx(fwx - wR), bb);
+        cc.moveTo(tx(fwx + wR),  bb); cc.lineTo(tx(rwx - wR), bb);
+        cc.moveTo(tx(rwx + wR),  bb); cc.lineTo(tx(hw),       bb);
+        cc.stroke();
+
+        // Wheels
+        [fwx, rwx].forEach(wx => {
+          cc.beginPath();
+          cc.ellipse(tx(wx), wy, wxR, wyR, 0, 0, Math.PI * 2);
+          cc.stroke();
+        });
+      }
+
+      drawShape(1.0, 0.2, false);    // ghost — proper scale
+      drawShape(factor, 1.0, true);  // observed — contracted/apparent
+      cc.globalAlpha = 1.0;
+    }
+
+    function drawMarker(x, y, color, label) {
+      const mw = 16, mh = 20;
+      ctx.fillStyle = color;
+      ctx.beginPath();
+      ctx.moveTo(x, y - mh);
+      ctx.lineTo(x - mw / 2, y - mh * 0.48);
+      ctx.lineTo(x - mw / 2, y);
+      ctx.lineTo(x + mw / 2, y);
+      ctx.lineTo(x + mw / 2, y - mh * 0.48);
+      ctx.closePath();
+      ctx.fill();
+      ctx.fillStyle = '#fff';
+      ctx.font = 'bold 8px Courier New';
+      ctx.textAlign = 'center';
+      ctx.fillText(label, x, y - 5);
+    }
+
+    // ── Interaction ───────────────────────────────────────────────────────────
+    let drag = null;
+    const markerY = () => PT + GH + 46;
+
+    function hitTest(mx, my) {
+      const my0 = markerY();
+      const pvx = cpx(pX(greenX)), gvx = cpx(greenX);
+      if (Math.abs(mx - pvx) < 18 && Math.abs(my - my0) < 24) return 'purple';
+      if (Math.abs(mx - gvx) < 18 && Math.abs(my - my0) < 24) return 'green';
+      return null;
+    }
+
+    function applyDrag(mx) {
+      const u = upx(mx);
+      if (drag === 'green') {
+        greenX = Math.max(0, u);
+      } else {
+        greenX = greenFromPX(Math.max(0, u));
+      }
+      draw();
+    }
+
+    canvas.addEventListener('mousedown', e => {
+      const r = canvas.getBoundingClientRect();
+      drag = hitTest(e.clientX - r.left, e.clientY - r.top);
+    });
+    canvas.addEventListener('mousemove', e => {
+      const r = canvas.getBoundingClientRect();
+      const mx = e.clientX - r.left, my = e.clientY - r.top;
+      if (drag) { applyDrag(mx); }
+      else { canvas.style.cursor = hitTest(mx, my) ? 'ew-resize' : 'default'; }
+    });
+    canvas.addEventListener('mouseup',    () => { drag = null; });
+    canvas.addEventListener('mouseleave', () => { drag = null; });
+
+    function touchX(e) {
+      return e.touches[0].clientX - canvas.getBoundingClientRect().left;
+    }
+    canvas.addEventListener('touchstart', e => {
+      e.preventDefault();
+      const r = canvas.getBoundingClientRect();
+      drag = hitTest(e.touches[0].clientX - r.left, e.touches[0].clientY - r.top);
+    }, { passive: false });
+    canvas.addEventListener('touchmove', e => {
+      e.preventDefault();
+      if (drag) applyDrag(touchX(e));
+    }, { passive: false });
+    canvas.addEventListener('touchend', () => { drag = null; });
+
+    document.getElementById('mode-select').addEventListener('change', e => {
+      mode = e.target.value;
+      draw();
+    });
+
+    function toggleTheory() {
+      const theory = document.querySelector('.theory');
+      const btn = document.getElementById('theory-toggle');
+      if (theory.dataset.mode === 'scientific') {
+        theory.dataset.mode = 'plain';
+        btn.textContent = 'Scientific';
+      } else {
+        theory.dataset.mode = 'scientific';
+        btn.textContent = 'Plain Language';
+      }
+    }
+
+    draw();
+  </script>
+</body>
+</html>
