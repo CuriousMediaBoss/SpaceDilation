@@ -119,30 +119,6 @@
     }
     .theory tr:nth-child(even) td { background: rgba(100,80,200,0.05); }
     .theory td:first-child { color: #7766aa; font-weight: 600; }
-    .theory { position: relative; }
-    #theory-toggle {
-      position: absolute;
-      top: 16px;
-      right: 16px;
-      background: rgba(80,40,160,0.4);
-      border: 1px solid rgba(180,120,255,0.5);
-      border-radius: 6px;
-      color: #cc99ff;
-      font-family: 'Courier New', monospace;
-      font-size: 0.65rem;
-      font-weight: 600;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      padding: 5px 12px;
-      cursor: pointer;
-      outline: none;
-    }
-    #theory-toggle:hover {
-      border-color: rgba(200,140,255,0.8);
-      background: rgba(100,50,200,0.5);
-    }
-    .theory[data-mode="scientific"] .plain { display: none; }
-    .theory[data-mode="plain"] .scientific { display: none; }
     .mode-bar {
       display: flex;
       flex-direction: column;
@@ -227,14 +203,12 @@
   </div>
   <p class="hint">Drag purple (β) or green (γv) to set speed · the arc is the Lorentz curve · green → ∞ as v → c</p>
 
-  <div class="theory" data-mode="scientific">
-    <button id="theory-toggle" onclick="toggleTheory()">Plain Language</button>
+  <div class="theory">
 
     <!-- DEFINITION -->
-    <p class="theory-heading scientific">Definition</p>
-    <p class="theory-heading plain">What Is Space Dilation?</p>
+    <p class="theory-heading">Definition</p>
 
-    <p class="scientific">
+    <p>
       I define <em>Space Dilation</em> as the phenomenon by which a measurement perpendicular
       to an observer's line of sight — of true magnitude H₀ — is observed to have apparent
       magnitude H_obs&nbsp;=&nbsp;H₀&nbsp;cos&nbsp;θ, where θ is the angle subtended between the
@@ -243,22 +217,11 @@
       <strong>observed distance</strong> D (the projected horizontal separation, bounded) and the
       <strong>proper distance</strong> D/cos&nbsp;θ (the true line-of-sight distance, unbounded).
     </p>
-    <p class="plain">
-      Space Dilation is my term for something observable with the naked eye: a measurement
-      perpendicular to your line of sight — the height of a building, the width of a door —
-      appears smaller as it gets farther away, and it does so along a precise mathematical curve.
-      Not just "smaller because it's far" — but smaller by an exact fraction that traces the same
-      quarter-circle arc as Lorentz length contraction in special relativity. I separate two kinds
-      of distance: the <strong>observed distance</strong> D and the
-      <strong>proper distance</strong> D/cos&nbsp;θ, just as
-      special relativity separates observed speed from proper velocity.
-    </p>
 
     <!-- ISOMORPHISM -->
-    <p class="theory-heading scientific" style="margin-top: 8px;">Isomorphism with Length Contraction</p>
-    <p class="theory-heading plain" style="margin-top: 8px;">The Connection to Length Contraction</p>
+    <p class="theory-heading" style="margin-top: 8px;">Isomorphism with Length Contraction</p>
 
-    <p class="scientific">
+    <p>
       Lorentz length contraction states that the observed length of an object moving at coordinate
       speed v is L&nbsp;=&nbsp;L₀√(1&nbsp;−&nbsp;v²/c²), satisfying
       (v/c)²&nbsp;+&nbsp;(L/L₀)²&nbsp;=&nbsp;1. The coordinate speed v (bounded by c) and the
@@ -267,15 +230,6 @@
       same factor (γ&nbsp;=&nbsp;1/cos&nbsp;θ) that governs the spatial compression. Both systems
       are described by the single relation <em>f(x)&nbsp;=&nbsp;1/√(1&nbsp;+&nbsp;x²)</em>,
       where x is the normalized proper quantity and f is the observed fraction.
-    </p>
-    <p class="plain">
-      Length contraction says a fast-moving object gets shorter in the direction it's travelling.
-      The object also has a proper velocity — its true speed through its own time — which is larger
-      than what an observer measures, because the object's clock runs slow. Space Dilation has the
-      exact same structure. The distance you observe (D) is bounded, just as observed speed is
-      bounded by c. The proper distance (D/cos&nbsp;θ) is unbounded, growing without limit — just
-      as proper velocity grows without limit. Both follow the identical equation. Both trace the
-      same arc. The graph above shows both.
     </p>
 
     <table>
@@ -317,10 +271,9 @@
     </table>
 
     <!-- SPACE-TIME COUPLING -->
-    <p class="theory-heading scientific" style="margin-top: 8px;">Space-Time Coupling</p>
-    <p class="theory-heading plain" style="margin-top: 8px;">What Happens to Time</p>
+    <p class="theory-heading" style="margin-top: 8px;">Space-Time Coupling</p>
 
-    <p class="scientific">
+    <p>
       In each system, the arc intersection encodes a spatial effect and a temporal effect
       simultaneously, determined by the same angle θ. The character of the temporal coupling
       differs between the two systems. In length contraction, time dilation is
@@ -330,16 +283,6 @@
       a look-back time that is itself determined by the same arc intersection that sets the
       spatial scaling. In both cases, a single geometric quantity (the arc angle θ) simultaneously
       determines what happens to the observed spatial measurement and what happens to time.
-    </p>
-    <p class="plain">
-      In both systems, the arc point sets a spatial effect and a time effect at the same time —
-      you get both from one angle, or neither. In length contraction, as an object moves faster
-      it gets shorter AND its clock slows. Those two things are locked together by the arc. In
-      Space Dilation, as an object gets farther away it appears smaller AND you're seeing it
-      further into its past, because light takes D/c seconds to reach you. That look-back time
-      is set by the same arc point that sets the spatial scaling. The difference is in how time
-      is affected: motion changes time's <strong>rate</strong>. Distance only shifts time's
-      <strong>starting point</strong> — the rate stays completely intact.
     </p>
 
     <table>
@@ -371,10 +314,9 @@
     </table>
 
     <!-- PROPOSAL -->
-    <p class="theory-heading scientific" style="margin-top: 8px;">Proposal</p>
-    <p class="theory-heading plain" style="margin-top: 8px;">The Proposal</p>
+    <p class="theory-heading" style="margin-top: 8px;">Proposal</p>
 
-    <p class="scientific">
+    <p>
       I propose that Space Dilation is not a separate geometric phenomenon that happens to share
       the mathematics of Lorentz Length Contraction — it is the same phenomenon, expressed without
       velocity across static spatial separation. Length contraction is difficult to observe directly:
@@ -388,18 +330,8 @@
       suggests that the relativistic structure of observation is not exclusive to motion — it is a
       property of space itself.
     </p>
-    <p class="plain">
-      I'm proposing that Space Dilation isn't geometry that happens to look like special relativity.
-      It IS the same relativistic phenomenon — showing up in a domain where there is no motion at
-      all. Length contraction is nearly impossible to observe because you need to be moving close
-      to the speed of light. Space Dilation shows the same effect every time you look across a
-      distance. I am not saying these are analogous. I am saying they are the same thing. And if
-      that's right, then what we've been calling ordinary perspective is actually a relativistic
-      effect — one that reveals the same structure in static space that special relativity reveals
-      under motion.
-    </p>
 
-    <p class="scientific">
+    <p>
       I further note a striking asymmetry in how each domain treats time. When motion is present,
       time is attenuated — the moving object's clock runs at a reduced rate (1/γ &lt; 1), and that
       rate diminishes further as velocity increases. Motion appears to act against the passage of
@@ -411,17 +343,8 @@
       with time in fundamentally different ways, even as they produce identical spatial compressions
       under the same arc.
     </p>
-    <p class="plain">
-      There's something striking about how time behaves differently in each case. When an object
-      is in motion, time is actually reduced — it flows more slowly, and that slowdown increases
-      with speed. Motion seems to consume time's force. At the speed of light, time would stop
-      entirely — all of that force has transferred to motion. When an object is simply far away
-      and not moving, time isn't reduced at all. You're just seeing it as it was D/c seconds ago.
-      The full force of time is intact — it's only displaced. Motion redistributes time.
-      Distance only borrows from it.
-    </p>
 
-    <p class="scientific">
+    <p>
       This asymmetry connects to a deeper conservation principle. In special relativity, every
       object moves through spacetime at a fixed total rate — the speed of light c — partitioned
       between time and space. A stationary object expends its full allocation on the passage of
@@ -432,17 +355,8 @@
       in time; sin&nbsp;θ&nbsp;=&nbsp;v/c is the fraction that has become motion. Their squares
       sum to unity — nothing is created or lost, only redistributed.
     </p>
-    <p class="plain">
-      Think of it as a budget. Every object has a fixed allocation — equal to c — split between
-      how fast it moves through space and how fast it moves through time. Stationary: the entire
-      budget goes to time, which flows at full force. As it speeds up, budget shifts to motion
-      and time slows proportionally. At the speed of light, the budget is entirely spent on
-      motion and time stops. The arc on this graph IS that budget: cos&nbsp;θ is what remains in
-      time, sin&nbsp;θ is what has become motion. They always add up to one unit — nothing
-      created, nothing lost.
-    </p>
 
-    <p class="scientific">
+    <p>
       Under this interpretation, Space Dilation occupies a distinct position: it produces the same
       spatial compression as length contraction while leaving the temporal allocation entirely
       intact. Static spatial separation does not draw from the spacetime budget — it compresses
@@ -451,12 +365,6 @@
       relativistic observation under velocity is the same arc governing spatial observation at
       rest, but the two domains make entirely different demands on time. One redistributes it.
       The other leaves it whole.
-    </p>
-    <p class="plain">
-      What makes Space Dilation remarkable under this view is that it achieves the same spatial
-      compression as length contraction while leaving that budget completely untouched. Distance
-      doesn't draw from the spacetime allocation. It compresses measurement without spending any
-      of time's force. The arc appears — the same arc — but this time, time doesn't pay for it.
     </p>
 
     <p>
@@ -908,18 +816,6 @@
       mode = e.target.value;
       draw();
     });
-
-    function toggleTheory() {
-      const theory = document.querySelector('.theory');
-      const btn = document.getElementById('theory-toggle');
-      if (theory.dataset.mode === 'scientific') {
-        theory.dataset.mode = 'plain';
-        btn.textContent = 'Scientific';
-      } else {
-        theory.dataset.mode = 'scientific';
-        btn.textContent = 'Plain Language';
-      }
-    }
 
     draw();
   </script>
