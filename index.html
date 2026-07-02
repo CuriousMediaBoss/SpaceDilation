@@ -85,7 +85,16 @@
       letter-spacing: 3px;
       text-transform: uppercase;
       color: #7766aa;
+      margin-top: 10px;
       margin-bottom: 2px;
+    }
+    .scientific, .plain { display: flex; flex-direction: column; gap: 14px; }
+    .eq {
+      padding: 5px 20px;
+      color: #aaaacc;
+      font-size: 0.82rem;
+      border-left: 2px solid rgba(100,80,200,0.25);
+      margin: 0 8px;
     }
     .theory p {
       font-size: 0.82rem;
@@ -430,27 +439,101 @@
     <!-- SCIENTIFIC -->
     <div class="scientific">
 
-      <p class="theory-heading">Definition</p>
+      <p class="theory-heading">Abstract</p>
       <p>
-        I define <em>Space Dilation</em> as the phenomenon by which a measurement perpendicular
-        to an observer's line of sight — of true magnitude H₀ — is observed to have apparent
-        magnitude H_obs&nbsp;=&nbsp;H₀&nbsp;cos&nbsp;θ, where θ is the angle subtended between the
-        perpendicular axis and the line connecting observer to object. The observed fraction satisfies
-        sin²θ&nbsp;+&nbsp;(H_obs/H₀)²&nbsp;=&nbsp;1. I distinguish two distances: the
-        <strong>observed distance</strong> D (the projected horizontal separation, bounded) and the
-        <strong>proper distance</strong> D/cos&nbsp;θ (the true line-of-sight distance, unbounded).
+        Every observation is separated from its object by spacetime: because light propagates at a
+        finite speed, an object at distance D is always observed as it was D/c seconds in the past.
+        This paper proposes that this coupling of space and time in static observation constitutes a
+        fourth observational consequence of Special Relativity, alongside time dilation, length
+        contraction, and the relativity of simultaneity. When a dimension perpendicular to the line
+        of sight is observed, its apparent magnitude is reduced by the factor cos&nbsp;θ, following
+        the same complete geometric structure — a bounded observed quantity, an unbounded proper
+        quantity, and a shared scale factor — that governs Lorentz contraction. I show that the
+        light-clock configuration which generates the Lorentz factor and the configuration of static
+        observation are the same triangle, leg for leg, and I demonstrate that the proposed framework
+        composes exactly with relativistic aberration under a boost. The proposal is not a
+        modification of Special Relativity but an identification: what is ordinarily called
+        perspective is proposed to be a manifestation of the same spacetime geometry that produces
+        relativistic effects under motion.
       </p>
 
-      <p class="theory-heading" style="margin-top: 8px;">Isomorphism with Length Contraction</p>
+      <p class="theory-heading">Introduction</p>
       <p>
-        Lorentz length contraction states that the observed length of an object moving at coordinate
-        speed v is L&nbsp;=&nbsp;L₀√(1&nbsp;−&nbsp;v²/c²), satisfying
-        (v/c)²&nbsp;+&nbsp;(L/L₀)²&nbsp;=&nbsp;1. The coordinate speed v (bounded by c) and the
-        proper velocity γv (unbounded) stand in the same relationship as observed distance D and
-        proper distance D/cos&nbsp;θ: the proper quantity is the observed quantity scaled by the
-        same factor (γ&nbsp;=&nbsp;1/cos&nbsp;θ) that governs the spatial compression. Both systems
-        are described by the single relation <em>f(x)&nbsp;=&nbsp;1/√(1&nbsp;+&nbsp;x²)</em>,
-        where x is the normalized proper quantity and f is the observed fraction.
+        Special Relativity is generally understood through three well-known observational effects:
+        time dilation, length contraction, and the relativity of simultaneity. Each emerges from the
+        Lorentz transformations, and each becomes experimentally significant only at relativistic
+        velocities.
+      </p>
+      <p>This paper proposes a fourth observational consequence.</p>
+      <p>
+        Every observation, whether of a moving object or a stationary one, is fundamentally an
+        observation across spacetime. Because information propagates at the finite speed of light,
+        observing an object at distance D is always equivalent to observing an event that occurred
+        D/c seconds in the past. Spatial separation and temporal separation are therefore inseparable
+        aspects of every observation. An observer never observes an object at its present moment,
+        only at the event where the emitted light intersects the observer's worldline.
+      </p>
+      <p>I propose that this coupling produces an additional relativistic effect that has gone largely unrecognized.</p>
+      <p>
+        When a dimension perpendicular to the observer's line of sight is measured, its apparent
+        magnitude is
+      </p>
+      <p class="eq">H_obs = H₀ · cos θ</p>
+      <p>
+        This scaling is normally treated as a consequence of Euclidean perspective projection. I
+        argue instead that it is an observational manifestation of the same spacetime geometry
+        responsible for Lorentz length contraction. I refer to this effect as <em>Space Dilation</em>.
+      </p>
+      <p>
+        Space Dilation is not proposed as an alternative to Special Relativity, nor as an analogy to
+        Lorentz contraction. It is proposed as an overlooked consequence of the same underlying
+        spacetime structure. Motion reveals that structure through changes in clock rates and
+        contracted lengths. Static spatial separation reveals it through coupled changes in apparent
+        scale and temporal displacement.
+      </p>
+      <p>
+        The central question is therefore not whether the equations resemble one another, but whether
+        both effects arise from the same geometry of observation. The thesis of this paper can be
+        stated in one sentence:
+      </p>
+      <p>
+        <strong>I propose that Special Relativity has an overlooked observational consequence:
+        static spatial separation couples apparent scale and time through the same geometric
+        structure that couples length contraction and time dilation under motion.</strong>
+      </p>
+      <p>Everything that follows is evidence for that sentence.</p>
+
+      <p class="theory-heading">Formal Setup and Definitions</p>
+      <p>
+        Consider an observer at the origin of an inertial frame, and an object of proper transverse
+        extent H₀ located at distance D along the observer's line of sight. The observer and the
+        object share a rest frame; there is no relative motion anywhere in this configuration unless
+        explicitly introduced.
+      </p>
+      <p><strong>Proper height (H₀):</strong> the extent of the object perpendicular to the line of sight, measured in the object's rest frame.</p>
+      <p><strong>Observed distance (D):</strong> the spatial separation between observer and object along the line of sight.</p>
+      <p><strong>Light path:</strong> the null (lightlike) path connecting the emission event at the object to the reception event at the observer. For the transverse extremity of the object, this path has length √(D² + H₀²).</p>
+      <p><strong>View angle (θ):</strong> the angle defined by the configuration:</p>
+      <p class="eq">sin θ = D / √(D² + H₀²) &nbsp;&nbsp;&nbsp; cos θ = H₀ / √(D² + H₀²)</p>
+      <p><strong>Apparent scale (H_obs):</strong> the magnitude of the transverse dimension inferred from the light arriving at the observer's worldline at a single reception event:</p>
+      <p class="eq">H_obs = H₀ · cos θ</p>
+      <p><strong>Proper distance (D / cos θ):</strong> the observed distance rescaled by the geometric factor √(D² + H₀²), which is the length of the light path itself.</p>
+      <p><strong>Look-back time (D/c):</strong> the temporal displacement between the emission event and the reception event. Every observation at distance D is an observation of the object's state D/c seconds before the observer's present.</p>
+      <p><strong>Scale factor (1 / cos θ):</strong> the ratio between proper and observed quantities.</p>
+      <p>
+        Throughout this paper, "observed" always means inferred from light received at a single event
+        on the observer's worldline. No claim in this paper depends on any other notion of
+        measurement.
+      </p>
+
+      <p class="theory-heading">The Common Geometry</p>
+      <p>Lorentz length contraction is governed by</p>
+      <p class="eq">L / L₀ = √(1 − v²/c²)</p>
+      <p>Introducing the normalized velocity β = v/c = sin θ gives L / L₀ = cos θ, with the underlying constraint sin²θ + cos²θ = 1. Space Dilation produces precisely the same relationship:</p>
+      <p class="eq">H_obs / H₀ = cos θ &nbsp;&nbsp; where &nbsp;&nbsp; sin θ = D / √(D² + H₀²)</p>
+      <p>
+        Both systems therefore distinguish between a bounded observed quantity, an unbounded proper
+        quantity, and a common geometric scale factor γ = 1 / cos θ. The full correspondence:
       </p>
 
       <table>
@@ -462,12 +545,12 @@
         <tr>
           <td>Unit / arc radius</td>
           <td>c — speed of light</td>
-          <td>H₀ — true perpendicular size</td>
+          <td>H₀ — proper transverse size</td>
         </tr>
         <tr>
           <td>Observed quantity</td>
           <td>v — coordinate speed (bounded by c)</td>
-          <td>D — observed distance (bounded by H₀)</td>
+          <td>D — observed distance (bounded by arc)</td>
         </tr>
         <tr>
           <td>Proper quantity</td>
@@ -491,18 +574,37 @@
         </tr>
       </table>
 
-      <p class="theory-heading" style="margin-top: 8px;">Space-Time Coupling</p>
       <p>
-        In each system, the arc intersection encodes a spatial effect and a temporal effect
-        simultaneously, determined by the same angle θ. The character of the temporal coupling
-        differs between the two systems. In length contraction, time dilation is
-        <strong>multiplicative</strong>: the moving object's clock rate is reduced by a factor of
-        1/γ, where γ is read directly from the arc. In space dilation, the temporal effect is
-        <strong>additive</strong>: the observation is displaced D/c seconds into the past —
-        a look-back time that is itself determined by the same arc intersection that sets the
-        spatial scaling. In both cases, a single geometric quantity (the arc angle θ) simultaneously
-        determines what happens to the observed spatial measurement and what happens to time.
+        In Special Relativity, coordinate speed is bounded by c while proper velocity — speed
+        measured against the object's own time — grows without limit. In static observation, the
+        normalized observed distance sin θ is bounded by the arc while the proper distance D / cos θ
+        grows without limit. In both systems, the bounded and unbounded quantities are connected by
+        the same scale factor, generated by the same unit-circle relation.
       </p>
+      <p>
+        The significance is not that the equations resemble one another. Any two systems described by
+        a right triangle will share sin²θ + cos²θ = 1. The significance is that both systems exhibit
+        the complete structure: a bounded observed quantity, an unbounded proper quantity, a shared
+        scale factor, and a spatial effect and temporal effect locked to the same configuration point.
+        The correspondence extends beyond the contraction curve to the entire relationship between
+        observed and proper quantities.
+      </p>
+
+      <p class="theory-heading">Time Is the Shared Structure</p>
+      <p>The deeper correspondence is not the cosine. It is time.</p>
+      <p>
+        In Special Relativity, motion couples space and time through time dilation. As velocity
+        increases, clock rates decrease according to the Lorentz factor. Spatial contraction and
+        temporal dilation are inseparable consequences of the same geometry: a single value of θ on
+        the arc fixes both. You get both effects from one angle, or neither.
+      </p>
+      <p>
+        Static observation also couples space and time. Every increase in spatial separation produces
+        an increase in look-back time t = D/c, while simultaneously producing the apparent spatial
+        compression H_obs = H₀ cos θ. The look-back time and the spatial scaling are set by the same
+        configuration point. They cannot be altered independently.
+      </p>
+      <p>In both domains, one geometric configuration simultaneously determines a spatial effect and a temporal effect:</p>
 
       <table>
         <tr>
@@ -532,56 +634,254 @@
         </tr>
       </table>
 
-      <p class="theory-heading" style="margin-top: 8px;">Proposal</p>
       <p>
-        I propose that Space Dilation is not a separate geometric phenomenon that happens to share
-        the mathematics of Lorentz Length Contraction — it is the same phenomenon, expressed without
-        velocity across static spatial separation. Length contraction is difficult to observe directly:
-        it requires relative velocities approaching c, which lie far outside ordinary experience.
-        Space Dilation, I conjecture, is the same structural effect with no velocity term —
-        observable in everyday perception whenever a measurement perpendicular to the line of sight
-        is viewed at a distance. I am not proposing an analogy. I am proposing that this
-        equivalence reveals an intricate relationship between static space and motion: the same arc
-        that governs what happens to measurement under relativistic velocity also governs what happens
-        to measurement under spatial separation alone, with no motion required. If correct, this
-        suggests that the relativistic structure of observation is not exclusive to motion — it is a
-        property of space itself.
+        Under motion, time is altered multiplicatively: the rate at which proper time accumulates
+        changes. Under static separation, time is altered additively: the observer receives an
+        earlier portion of an otherwise unchanged history.
+      </p>
+      <p><strong>Motion changes the rate of time. Distance changes the origin of time.</strong></p>
+      <p>
+        In the language of Special Relativity: the invariant spacetime interval constrains how
+        temporal and spatial components of any observation are related. Motion changes the partition
+        between coordinate time and proper time. Static spatial separation introduces temporal
+        displacement without altering proper time. Space Dilation is proposed as another
+        manifestation of this same underlying structure.
+      </p>
+
+      <p class="theory-heading">The Light Clock Across Distance</p>
+      <p>
+        Einstein's light clock consists of a photon reflecting between two mirrors separated by a
+        height H₀. For an observer in relative motion, the photon traces a longer diagonal path.
+        Because the speed of light is invariant, the longer path requires more time per tick, and
+        the moving clock is observed to run slowly. The invariance of c forces the tick rate to
+        change.
       </p>
       <p>
-        I further note a striking asymmetry in how each domain treats time. When motion is present,
-        time is attenuated — the moving object's clock runs at a reduced rate (1/γ &lt; 1), and that
-        rate diminishes further as velocity increases. Motion appears to act against the passage of
-        time, progressively suppressing it as the arc angle grows. When motion is absent, as in Space
-        Dilation, time is not attenuated at all — it is merely displaced. The observer receives the
-        same undiminished flow of time, offset by D/c into the past. This distinction — between time
-        that is <strong>diminished by motion</strong> and time that is <strong>shifted by distance</strong>
-        — may itself be significant: it suggests that motion and static spatial separation engage
-        with time in fundamentally different ways, even as they produce identical spatial compressions
-        under the same arc.
+        Now place the same clock at rest at distance D, with its mirrors perpendicular to the
+        observer's line of sight. There is no relative motion, so there is no time dilation. The
+        ticks arrive at the observer at the clock's proper rate of 2H₀/c, uniformly delayed by the
+        look-back time D/c.
       </p>
       <p>
-        This asymmetry connects to a deeper conservation principle. In special relativity, every
-        object moves through spacetime at a fixed total rate — the speed of light c — partitioned
-        between time and space. A stationary object expends its full allocation on the passage of
-        time. As velocity increases, that allocation transfers progressively to spatial motion,
-        reducing the rate of proper time accordingly. At v&nbsp;=&nbsp;c, the transfer is complete:
-        the entire allocation has become motion, and proper time ceases. The arc encodes this
-        conservation exactly: cos&nbsp;θ&nbsp;=&nbsp;1/γ is the fraction of the allocation remaining
-        in time; sin&nbsp;θ&nbsp;=&nbsp;v/c is the fraction that has become motion. Their squares
-        sum to unity — nothing is created or lost, only redistributed.
+        The clock is, however, observed at apparent scale H_obs = H₀ cos θ. The photon is therefore
+        seen to traverse a shorter apparent span in an unchanged proper interval, giving it an
+        apparent transverse speed of c cos θ. The two configurations are exact complements:
+      </p>
+      <p>In the moving clock, the speed of light is invariant and the tick rate adjusts.</p>
+      <p>In the distant clock, the tick rate is invariant and the apparent path adjusts.</p>
+      <p>
+        In both cases the same factor, cos θ, governs the tradeoff, and in both cases a single
+        geometric configuration fixes the spatial and temporal quantities together. Neither can be
+        altered independently of the other. This restates the rate-versus-origin distinction in
+        concrete terms: motion changes the seconds per tick; distance changes the apparent meters
+        per tick.
+      </p>
+
+      <p class="theory-heading">Composition with Relativistic Aberration</p>
+      <p>
+        If the static geometry and the kinematic geometry are truly one structure, they must compose.
+        That is, the framework defined above for a stationary observer must transform correctly when
+        the observer is set in motion, reproducing what full Special Relativity predicts.
       </p>
       <p>
-        Under this interpretation, Space Dilation occupies a distinct position: it produces the same
-        spatial compression as length contraction while leaving the temporal allocation entirely
-        intact. Static spatial separation does not draw from the spacetime budget — it compresses
-        measurement without consuming any of time's force. I conjecture that this reveals something
-        fundamental about the relationship between space and motion: that the arc governing
-        relativistic observation under velocity is the same arc governing spatial observation at
-        rest, but the two domains make entirely different demands on time. One redistributes it.
-        The other leaves it whole.
+        Relativistic aberration is the established result that motion changes observed angles. For
+        an observer moving at normalized velocity β, an angle θ in the stationary frame transforms
+        according to
+      </p>
+      <p class="eq">cos θ′ = (cos θ − β) / (1 − β cos θ)</p>
+      <p>
+        Aberration uses exactly the variables of this framework — an observation angle and a velocity
+        — related by an actual Lorentz transformation. It is therefore the point in existing physics
+        where the static and kinematic geometries meet, and the natural test of the proposed
+        identification.
       </p>
       <p>
-        To my knowledge, this identification has not been previously proposed in the literature.
+        <strong>The worked case.</strong> Let a stationary observer view an object of transverse
+        extent H₀ directly ahead at distance D, with D much greater than H₀. Now let a second
+        observer move directly toward the object at β = 0.6, passing the stationary observer at
+        the exact moment the same light reaches both. The relativistic Doppler factor at β = 0.6
+        for an approaching observer is
+      </p>
+      <p class="eq">√((1 + β)/(1 − β)) = √(1.6/0.4) = 2</p>
+      <p>
+        Special Relativity's aberration machinery predicts that the moving observer sees the
+        object's angular size reduced by exactly this factor: the object appears at half the angular
+        scale, despite the observer rushing toward it. This is a settled, counterintuitive,
+        well-known result of relativistic optics.
+      </p>
+      <p>
+        Now apply the Space Dilation rule independently in the moving frame. The proper transverse
+        extent H₀ is unchanged — transverse lengths are not contracted in Special Relativity. The
+        light path, however, transforms. In the stationary frame the light was emitted at distance D,
+        a time D/c before reception. Transforming the emission and reception events into the moving
+        frame (γ = 1.25 at β = 0.6):
+      </p>
+      <p class="eq">t′ = γ(t − βx/c) = 1.25 × (−D/c − 0.6 D/c) = −2D/c</p>
+      <p>
+        In the moving observer's frame, the light traveled for 2D/c seconds, covering a light path
+        of length 2D. The Space Dilation rule — apparent scale equals transverse extent divided by
+        light path — then gives H₀ / 2D, exactly half the stationary value. The framework and the
+        aberration formula agree exactly, at every speed and every angle.
+      </p>
+      <p>
+        <strong>Why it composes.</strong> The composition succeeds because the distance in the Space
+        Dilation triangle is the light-path distance — the null interval connecting emission to
+        reception — and the light path is precisely the quantity that transforms correctly between
+        frames. The framework's core commitment — that observation occurs along the light path, and
+        the light path defines the geometry — is exactly the feature that allows it to mesh with a
+        Lorentz boost without contradiction. What this demonstrates is consistency, not new physics:
+        the Space Dilation triangle, boosted, becomes the aberration triangle of Special Relativity
+        automatically. A framework that were merely analogous to relativistic geometry would have no
+        guarantee of composing; this one composes exactly.
+      </p>
+
+      <p class="theory-heading">Relation to Existing Work</p>
+      <p>The relationship between what is seen and what is in Special Relativity is an established subject, and the present proposal should be located within it.</p>
+      <p>
+        <strong>Terrell–Penrose rotation.</strong> Terrell (1959) and Penrose (1959) independently
+        demonstrated that a rapidly moving object does not visually appear contracted. Because light
+        from different parts of the object requires different travel times to reach the observer, the
+        light arriving at a single reception event left the object at different moments; the
+        combination of these delays with Lorentz contraction causes the object to appear rotated
+        rather than flattened. This is the canonical demonstration that light-travel-time effects and
+        Lorentz geometry jointly determine appearance, and it is the closest existing neighbor to the
+        present proposal. It establishes the premise this paper relies on — that observation across
+        distance already mixes spatial and temporal structure inseparably — while also showing that
+        the physics community has examined this intersection and conventionally classified the
+        light-propagation component as optics rather than relativity. The present paper argues that
+        this classification, while operationally harmless, obscures an identification: the "optical"
+        component and the "relativistic" component are generated by the same triangle, as shown in
+        the light-clock and aberration sections above.
+      </p>
+      <p>
+        <strong>Relativistic aberration.</strong> Aberration is the existing point of contact between
+        observation angles and Lorentz transformations. The present framework does not modify
+        aberration; it composes with it exactly, and derives its strongest support from that fact.
+      </p>
+      <p>
+        <strong>Geodesy of observation.</strong> The statement that every observation is of a past
+        event along a null path is standard Special Relativity, present in any treatment of light
+        cones. What this paper adds is not that fact, but the proposal that the geometric scaling
+        accompanying that fact — the cos θ reduction of transverse extent — should be recognized as
+        belonging to the same family of observational consequences as time dilation and length
+        contraction, rather than being set aside as pre-relativistic optics.
+      </p>
+      <p>
+        To my knowledge, the specific identification proposed here — that perspective scaling and
+        Lorentz contraction are manifestations of one generating geometry, coupled to time in
+        complementary ways — has not been previously proposed in the literature.
+      </p>
+
+      <p class="theory-heading">Anticipated Objections</p>
+      <p>
+        <strong>Objection 1: the axes do not match.</strong> Lorentz contraction is longitudinal: it
+        occurs along the direction of motion, and transverse lengths are famously unaffected. Space
+        Dilation, as defined here, is transverse: it acts perpendicular to the line of sight. If the
+        two were the same phenomenon, they should contract the same axis.
+      </p>
+      <p>
+        This objection compares Space Dilation to a derived consequence rather than to the generating
+        geometry. The Lorentz factor is generated by the light-clock configuration, which is
+        transverse: an invariant height H₀ perpendicular to the motion, a separation leg accumulated
+        by displacement (vt), and a light path forming the hypotenuse, with cos θ given by the ratio
+        of invariant height to light path. Space Dilation presents the identical configuration: an
+        invariant proper height H₀ perpendicular to the line of sight, a separation leg fixed by the
+        distance D, and a light path of length √(D² + H₀²) as the hypotenuse. The correspondence is
+        made at the level of the geometry that produces the Lorentz factor, in which the transverse
+        dimension serves as the invariant reference in both cases. Longitudinal length contraction is
+        a downstream consequence of that geometry under motion; apparent transverse reduction is its
+        direct expression under static separation.
+      </p>
+      <p>
+        <strong>Objection 2: the identity is trivial.</strong> The relation sin²θ + cos²θ = 1
+        appears in every right triangle in physics; a correspondence built on it is guaranteed by
+        trigonometry, not revealed by it.
+      </p>
+      <p>
+        The claim of this paper is not that a cosine appears twice. It is that the complete structure
+        appears twice: a bounded observed quantity, an unbounded proper quantity, a shared scale
+        factor 1/cos θ, and a spatial effect and temporal effect locked to a single configuration
+        point — and further, that the two structures are built on the same triangle leg for leg, and
+        compose exactly under a Lorentz boost. The light-clock identification and aberration
+        composition are offered as that demonstration.
+      </p>
+      <p>
+        <strong>Objection 3: perspective is removable.</strong> Walk closer to the building and the
+        scaling vanishes. No boost is required; therefore the effect is not relativistic.
+      </p>
+      <p>
+        Lorentz contraction is equally removable: boost into the object's rest frame and the
+        contraction vanishes. Both effects are relational — defined by the configuration between
+        observer and observed rather than by any intrinsic change in the object. Both are reciprocal:
+        two separated observers each observe the other at reduced scale, exactly as two relatively
+        moving observers each observe the other contracted. Removability and reciprocity are
+        characteristic features of relativistic effects, not evidence against one. The objection,
+        examined closely, describes a property that Space Dilation shares with the accepted
+        relativistic effects.
+      </p>
+
+      <p class="theory-heading">Status of the Proposal</p>
+      <p>It is important to be explicit about what kind of claim this paper makes.</p>
+      <p>
+        As it stands, Space Dilation makes no numerical prediction that differs from Euclidean optics
+        combined with light-travel delay. Both frameworks predict an apparent scale of H₀ cos θ and
+        a look-back time of D/c. The proposal is therefore interpretive: it is a claim about what the
+        shared structure means — that the geometry conventionally split between "perspective" and
+        "relativity" is one geometry — rather than a claim that any observation will deviate from
+        expectation.
+      </p>
+      <p>
+        Interpretive proposals have standing in physics. Minkowski's geometric reformulation of
+        Special Relativity predicted nothing that Einstein's 1905 formulation did not; its value was
+        structural, and it subsequently shaped everything built on the theory. The present proposal
+        is offered in that spirit, at appropriately smaller scale.
+      </p>
+      <p>
+        The aberration composition demonstrates that the framework is embedded in Special Relativity
+        rather than contradicting it. What remains open is whether it is more than consistent —
+        whether any observation could distinguish "same underlying geometry" from "same mathematics,
+        different phenomena." Identifying a configuration in which the two accounts are operationally
+        distinguishable is the open problem this paper poses.
+      </p>
+
+      <p class="theory-heading">Conclusion</p>
+      <p>
+        I propose that Special Relativity has an overlooked observational consequence: static spatial
+        separation couples apparent scale and time through the same geometric structure that couples
+        length contraction and time dilation under motion.
+      </p>
+      <p>
+        The chain of argument is this. Every observation is an observation across spacetime,
+        connected by a null light path; this is standard Special Relativity. Static separation
+        therefore couples space and time in every observation: an object at distance D is seen at
+        scale H₀ cos θ and at temporal displacement D/c, both fixed by a single geometric
+        configuration. That configuration exhibits the complete Lorentz structure — bounded observed
+        quantity, unbounded proper quantity, shared scale factor — and is the same triangle, leg for
+        leg, as the light-clock geometry that generates the Lorentz factor. The framework composes
+        exactly with relativistic aberration under a boost, demonstrating that it is embedded in
+        Special Relativity rather than parallel to it. The two domains differ only in the
+        manifestation of time: motion changes the rate at which time accumulates, while distance
+        changes the origin from which it is observed. Motion changes the seconds per tick; distance
+        changes the apparent meters per tick.
+      </p>
+      <p>
+        This paper does not modify the Lorentz transformations, does not propose new dynamics, and
+        does not predict deviations from relativistic optics. It proposes an identification: that the
+        effect we have long called perspective is the static face of the same spacetime geometry
+        whose moving face we call length contraction — one structure, revealed under two
+        observational conditions.
+      </p>
+      <p>
+        Whether that identification can be made operationally distinguishable from the conventional
+        account is the question this paper leaves open, and the one I consider most worth pursuing.
+      </p>
+
+      <p class="theory-heading">References</p>
+      <p>
+        Terrell, J. (1959). "Invisibility of the Lorentz Contraction." <em>Physical Review</em>
+        116 (4): 1041–1045.<br>
+        Penrose, R. (1959). "The Apparent Shape of a Relativistically Moving Sphere."
+        <em>Mathematical Proceedings of the Cambridge Philosophical Society</em> 55 (1): 137–139.
       </p>
 
     </div>
