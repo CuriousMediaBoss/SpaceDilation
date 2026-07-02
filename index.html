@@ -119,6 +119,30 @@
     }
     .theory tr:nth-child(even) td { background: rgba(100,80,200,0.05); }
     .theory td:first-child { color: #7766aa; font-weight: 600; }
+    .theory { position: relative; }
+    #theory-toggle {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: rgba(80,40,160,0.4);
+      border: 1px solid rgba(180,120,255,0.5);
+      border-radius: 6px;
+      color: #cc99ff;
+      font-family: 'Courier New', monospace;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      cursor: pointer;
+      outline: none;
+    }
+    #theory-toggle:hover {
+      border-color: rgba(200,140,255,0.8);
+      background: rgba(100,50,200,0.5);
+    }
+    .theory[data-mode="scientific"] .plain { display: none; }
+    .theory[data-mode="plain"] .scientific { display: none; }
     .mode-bar {
       display: flex;
       flex-direction: column;
@@ -203,173 +227,364 @@
   </div>
   <p class="hint">Drag purple (β) or green (γv) to set speed · the arc is the Lorentz curve · green → ∞ as v → c</p>
 
-  <div class="theory">
+  <div class="theory" data-mode="plain">
+    <button id="theory-toggle" onclick="toggleTheory()">Scientific</button>
 
-    <!-- DEFINITION -->
-    <p class="theory-heading">Definition</p>
+    <!-- PLAIN ENGLISH -->
+    <div class="plain">
 
-    <p>
-      I define <em>Space Dilation</em> as the phenomenon by which a measurement perpendicular
-      to an observer's line of sight — of true magnitude H₀ — is observed to have apparent
-      magnitude H_obs&nbsp;=&nbsp;H₀&nbsp;cos&nbsp;θ, where θ is the angle subtended between the
-      perpendicular axis and the line connecting observer to object. The observed fraction satisfies
-      sin²θ&nbsp;+&nbsp;(H_obs/H₀)²&nbsp;=&nbsp;1. I distinguish two distances: the
-      <strong>observed distance</strong> D (the projected horizontal separation, bounded) and the
-      <strong>proper distance</strong> D/cos&nbsp;θ (the true line-of-sight distance, unbounded).
-    </p>
+      <p class="theory-heading">Start with something you already know</p>
 
-    <!-- ISOMORPHISM -->
-    <p class="theory-heading" style="margin-top: 8px;">Isomorphism with Length Contraction</p>
+      <p>
+        Stand on a sidewalk and look at a building a few blocks away. It looks small. Walk toward it
+        and it grows. Everyone on Earth has experienced this, and everyone calls it the same thing:
+        perspective. Things look smaller when they're farther away. Case closed, right?
+      </p>
+      <p>
+        Here's the thing nobody mentions: the <em>amount</em> by which things shrink isn't random.
+        It follows an exact mathematical curve. And that curve is identical — not similar, identical
+        — to the curve Einstein's relativity uses to describe how fast-moving objects get shorter.
+      </p>
+      <p>
+        This paper asks a simple question: is that a coincidence?
+      </p>
+      <p>
+        I'm proposing it isn't. I'm proposing that what we call perspective is actually a
+        relativistic effect — the same physics that makes clocks slow down on speeding rockets —
+        showing up in everyday life, where nothing is moving at all. I call it <em>Space Dilation</em>.
+      </p>
 
-    <p>
-      Lorentz length contraction states that the observed length of an object moving at coordinate
-      speed v is L&nbsp;=&nbsp;L₀√(1&nbsp;−&nbsp;v²/c²), satisfying
-      (v/c)²&nbsp;+&nbsp;(L/L₀)²&nbsp;=&nbsp;1. The coordinate speed v (bounded by c) and the
-      proper velocity γv (unbounded) stand in the same relationship as observed distance D and
-      proper distance D/cos&nbsp;θ: the proper quantity is the observed quantity scaled by the
-      same factor (γ&nbsp;=&nbsp;1/cos&nbsp;θ) that governs the spatial compression. Both systems
-      are described by the single relation <em>f(x)&nbsp;=&nbsp;1/√(1&nbsp;+&nbsp;x²)</em>,
-      where x is the normalized proper quantity and f is the observed fraction.
-    </p>
+      <p class="theory-heading" style="margin-top: 8px;">Every time you look at something, you're looking into the past</p>
 
-    <table>
-      <tr>
-        <th></th>
-        <th>Length Contraction</th>
-        <th>Space Dilation</th>
-      </tr>
-      <tr>
-        <td>Unit / arc radius</td>
-        <td>c — speed of light</td>
-        <td>H₀ — true perpendicular size</td>
-      </tr>
-      <tr>
-        <td>Observed quantity</td>
-        <td>v — coordinate speed (bounded by c)</td>
-        <td>D — observed distance (bounded by H₀)</td>
-      </tr>
-      <tr>
-        <td>Proper quantity</td>
-        <td>γv — proper velocity (unbounded)</td>
-        <td>D / cos θ — proper distance (unbounded)</td>
-      </tr>
-      <tr>
-        <td>Normalized observed</td>
-        <td>β = v/c = sin θ</td>
-        <td>sin θ = D / √(D² + H₀²)</td>
-      </tr>
-      <tr>
-        <td>Observed fraction</td>
-        <td>L / L₀ = cos θ</td>
-        <td>H_obs / H₀ = cos θ</td>
-      </tr>
-      <tr>
-        <td>Scale factor</td>
-        <td>γ = 1 / cos θ</td>
-        <td>1 / cos θ</td>
-      </tr>
-    </table>
+      <p>
+        Here's a fact that sounds like science fiction but is completely standard physics: you have
+        never seen anything as it is <em>right now</em>.
+      </p>
+      <p>
+        Light takes time to travel. When you look at the Moon, you're seeing it as it was about
+        1.3 seconds ago. The Sun, 8 minutes ago. A mountain ten miles away, a tiny fraction of a
+        second ago — but still the past. Even this screen is reaching your eyes a few billionths of
+        a second late.
+      </p>
+      <p>
+        So every act of looking does two things at once. It crosses a <em>distance</em>, and it
+        reaches back in <em>time</em>. You cannot separate them. The farther away something is,
+        the deeper into its past you're seeing.
+      </p>
+      <p>
+        Distance and time come bundled together in every observation. That's not my claim — that's
+        textbook relativity. My claim is about what comes next.
+      </p>
 
-    <!-- SPACE-TIME COUPLING -->
-    <p class="theory-heading" style="margin-top: 8px;">Space-Time Coupling</p>
+      <p class="theory-heading" style="margin-top: 8px;">The shrinking follows relativity's curve</p>
 
-    <p>
-      In each system, the arc intersection encodes a spatial effect and a temporal effect
-      simultaneously, determined by the same angle θ. The character of the temporal coupling
-      differs between the two systems. In length contraction, time dilation is
-      <strong>multiplicative</strong>: the moving object's clock rate is reduced by a factor of
-      1/γ, where γ is read directly from the arc. In space dilation, the temporal effect is
-      <strong>additive</strong>: the observation is displaced D/c seconds into the past —
-      a look-back time that is itself determined by the same arc intersection that sets the
-      spatial scaling. In both cases, a single geometric quantity (the arc angle θ) simultaneously
-      determines what happens to the observed spatial measurement and what happens to time.
-    </p>
+      <p>
+        Einstein's Special Relativity is famous for three strange effects that happen when things
+        move near the speed of light: moving clocks tick slower, moving objects get shorter, and
+        observers disagree about what "now" means.
+      </p>
+      <p>
+        All three come from one piece of geometry — a curve shaped like a quarter of a circle.
+        Speed goes along one axis, and the amount of shrinking or slowing comes off the curve.
+        As an object approaches light speed, it slides along that arc: shorter and shorter, slower
+        and slower.
+      </p>
+      <p>
+        Now here's my observation. Take a building of a fixed height and move it farther and farther
+        away from you. Plot how big it <em>looks</em> against how far away it is. You get a curve.
+      </p>
+      <p>
+        <strong>It's the same arc.</strong> Same equation. Same quarter-circle. Point for point.
+      </p>
+      <p>
+        And the parallels run deeper than the curve itself. In relativity, the speed you can
+        <em>observe</em> is capped — nothing appears to move faster than light — but there's another
+        kind of speed, measured against the object's own clock, that has no limit at all. Space
+        Dilation has the exact same split: the <em>apparent</em> distance to an object is capped by
+        the geometry, while the true distance can grow forever. Bounded on the outside, unbounded
+        underneath, connected by the same conversion factor. That's not one coincidence. That's the
+        whole structure, duplicated.
+      </p>
 
-    <table>
-      <tr>
-        <th></th>
-        <th>Length Contraction</th>
-        <th>Space Dilation</th>
-      </tr>
-      <tr>
-        <td>Spatial effect</td>
-        <td>L / L₀ = cos θ</td>
-        <td>H_obs / H₀ = cos θ</td>
-      </tr>
-      <tr>
-        <td>Temporal effect</td>
-        <td>Clock rate scales by 1/γ = cos θ</td>
-        <td>Observation origin shifts by D/c</td>
-      </tr>
-      <tr>
-        <td>Character</td>
-        <td>Multiplicative — rate changes</td>
-        <td>Additive — origin shifts</td>
-      </tr>
-      <tr>
-        <td>Determined by</td>
-        <td>Arc angle θ</td>
-        <td>Arc angle θ</td>
-      </tr>
-    </table>
+      <p class="theory-heading" style="margin-top: 8px;">The light clock: where it gets really interesting</p>
 
-    <!-- PROPOSAL -->
-    <p class="theory-heading" style="margin-top: 8px;">Proposal</p>
+      <p>
+        Einstein's most famous thought experiment is the light clock: imagine a photon bouncing
+        between two mirrors, tick, tock. Put that clock on a fast-moving ship, and from the ground
+        you see the photon trace a longer, diagonal path. But light's speed can never change —
+        that's the iron rule of relativity. So if the path gets longer and the speed can't budge,
+        the only thing left to give is <em>time itself</em>. The ticks stretch out. The moving
+        clock runs slow.
+      </p>
+      <p>
+        Now do something Einstein never did with it. Don't move the clock. Just put it far away.
+      </p>
+      <p>
+        The clock sits perfectly still, a mile from you. No motion, so no time dilation — its ticks
+        reach you at exactly the normal rate, just delayed by however long the light takes to arrive.
+        But because of distance, the clock <em>looks</em> small. The photon appears to bounce across
+        a shorter gap — while ticking at the full, correct rate.
+      </p>
+      <p>
+        Look at what happened. The two setups are mirror images: on the moving ship, the
+        <em>speed of light</em> was locked, so the <em>tick rate</em> had to change. At a distance,
+        the <em>tick rate</em> is locked, so the <em>apparent path</em> had to change. Same
+        trade-off, same geometry, approached from opposite ends. One knob or the other turns, and
+        the same mathematical factor governs both.
+      </p>
+      <p>
+        And that reveals the one true difference between motion and distance:
+      </p>
+      <p>
+        <strong>Motion changes the rate of time. Distance changes the starting point of time.</strong>
+      </p>
+      <p>
+        A speeding clock ticks <em>slower</em>. A faraway clock ticks at full speed — you're just
+        watching an earlier chapter of it. Motion messes with time's flow. Distance only shifts
+        where you tuned in.
+      </p>
 
-    <p>
-      I propose that Space Dilation is not a separate geometric phenomenon that happens to share
-      the mathematics of Lorentz Length Contraction — it is the same phenomenon, expressed without
-      velocity across static spatial separation. Length contraction is difficult to observe directly:
-      it requires relative velocities approaching c, which lie far outside ordinary experience.
-      Space Dilation, I conjecture, is the same structural effect with no velocity term —
-      observable in everyday perception whenever a measurement perpendicular to the line of sight
-      is viewed at a distance. I am not proposing an analogy. I am proposing that this
-      equivalence reveals an intricate relationship between static space and motion: the same arc
-      that governs what happens to measurement under relativistic velocity also governs what happens
-      to measurement under spatial separation alone, with no motion required. If correct, this
-      suggests that the relativistic structure of observation is not exclusive to motion — it is a
-      property of space itself.
-    </p>
+      <p class="theory-heading" style="margin-top: 8px;">The stress test: does it survive motion?</p>
 
-    <p>
-      I further note a striking asymmetry in how each domain treats time. When motion is present,
-      time is attenuated — the moving object's clock runs at a reduced rate (1/γ &lt; 1), and that
-      rate diminishes further as velocity increases. Motion appears to act against the passage of
-      time, progressively suppressing it as the arc angle grows. When motion is absent, as in Space
-      Dilation, time is not attenuated at all — it is merely displaced. The observer receives the
-      same undiminished flow of time, offset by D/c into the past. This distinction — between time
-      that is <strong>diminished by motion</strong> and time that is <strong>shifted by distance</strong>
-      — may itself be significant: it suggests that motion and static spatial separation engage
-      with time in fundamentally different ways, even as they produce identical spatial compressions
-      under the same arc.
-    </p>
+      <p>
+        A pattern is nice. But physics demands more: if I claim perspective and relativity are one
+        machine, then the two have to <em>work together</em>. If you start moving while looking at
+        that distant building, my "distance" math and Einstein's "motion" math have to agree on what
+        you'll see. If they clash, my idea is dead.
+      </p>
+      <p>
+        So I ran the test. Take an observer flying toward the building at 60% of the speed of
+        light — and here relativity makes a prediction that sounds absurd: rushing toward the
+        building makes it look <em>smaller</em>, exactly half its standing-still size. This is a
+        real, verified effect of relativistic optics.
+      </p>
+      <p>
+        Now forget relativity's machinery and use only my rule: apparent size equals true size
+        divided by the length of the light's journey. Do the accounting from the moving observer's
+        point of view, and it turns out that in <em>their</em> frame, that light traveled exactly
+        <em>twice</em> as far to reach them.
+      </p>
+      <p>
+        Half the size. Exactly what Einstein's equations demand. The two calculations land on the
+        same answer — not roughly, not approximately. Exactly. And the agreement holds at every
+        speed and every angle you try.
+      </p>
+      <p>
+        And it works for one specific reason: because my framework measures everything along the
+        <em>light's actual path</em> — the past-reaching journey the light really made — and that
+        path is precisely the thing relativity knows how to handle. The idea passed the test
+        <em>because of</em> its central claim, not in spite of it.
+      </p>
 
-    <p>
-      This asymmetry connects to a deeper conservation principle. In special relativity, every
-      object moves through spacetime at a fixed total rate — the speed of light c — partitioned
-      between time and space. A stationary object expends its full allocation on the passage of
-      time. As velocity increases, that allocation transfers progressively to spatial motion,
-      reducing the rate of proper time accordingly. At v&nbsp;=&nbsp;c, the transfer is complete:
-      the entire allocation has become motion, and proper time ceases. The arc encodes this
-      conservation exactly: cos&nbsp;θ&nbsp;=&nbsp;1/γ is the fraction of the allocation remaining
-      in time; sin&nbsp;θ&nbsp;=&nbsp;v/c is the fraction that has become motion. Their squares
-      sum to unity — nothing is created or lost, only redistributed.
-    </p>
+      <p class="theory-heading" style="margin-top: 8px;">The obvious objection</p>
 
-    <p>
-      Under this interpretation, Space Dilation occupies a distinct position: it produces the same
-      spatial compression as length contraction while leaving the temporal allocation entirely
-      intact. Static spatial separation does not draw from the spacetime budget — it compresses
-      measurement without consuming any of time's force. I conjecture that this reveals something
-      fundamental about the relationship between space and motion: that the arc governing
-      relativistic observation under velocity is the same arc governing spatial observation at
-      rest, but the two domains make entirely different demands on time. One redistributes it.
-      The other leaves it whole.
-    </p>
+      <p>
+        "But if the building looks small, just walk closer. It goes back to normal! Real physics
+        doesn't work like that."
+      </p>
+      <p>
+        Except it does. Relativity's shrinking works exactly the same way: a speeding rocket looks
+        shortened to you, but hop aboard and it's normal length. The effect vanishes when you change
+        your relationship to the object — same as walking closer to the building.
+      </p>
+      <p>
+        And both effects are two-way streets. Two people standing a mile apart <em>each</em> see the
+        other looking small. Two rockets passing each other <em>each</em> see the other shortened.
+        That strange mutual symmetry is considered a signature feature of relativity. Perspective has
+        it too. What sounds like an objection is actually more evidence.
+      </p>
 
-    <p>
-      To my knowledge, this identification has not been previously proposed in the literature.
-    </p>
+      <p class="theory-heading" style="margin-top: 8px;">What I'm claiming — and what I'm not</p>
+
+      <p>
+        Let me be straight about the size of this claim.
+      </p>
+      <p>
+        I am <strong>not</strong> saying Einstein was wrong. Nothing here changes a single equation
+        of relativity.
+      </p>
+      <p>
+        I am <strong>not</strong> predicting that you'll measure anything different tomorrow. The
+        building looks exactly as small as the old geometry says it should.
+      </p>
+      <p>
+        What I <strong>am</strong> saying is this: physics has been filing the same phenomenon in
+        two different drawers. The shrinking of fast objects goes in the drawer marked "relativity —
+        deep truth about spacetime." The shrinking of distant objects goes in the drawer marked
+        "perspective — boring optics, known since the Renaissance." I'm proposing the drawers
+        contain the same thing. One geometry, wearing two costumes: motion shows you its
+        time-bending face, distance shows you its everyday face.
+      </p>
+      <p>
+        If that's right, then relativity isn't some exotic effect you need a particle accelerator to
+        witness. You are looking at it right now. Every glance across a room crosses space
+        <em>and</em> time together, shrinking the world along Einstein's arc. The strangeness was
+        never far away.
+      </p>
+      <p>
+        It was just filed under the wrong name.
+      </p>
+
+    </div>
+
+    <!-- SCIENTIFIC -->
+    <div class="scientific">
+
+      <p class="theory-heading">Definition</p>
+      <p>
+        I define <em>Space Dilation</em> as the phenomenon by which a measurement perpendicular
+        to an observer's line of sight — of true magnitude H₀ — is observed to have apparent
+        magnitude H_obs&nbsp;=&nbsp;H₀&nbsp;cos&nbsp;θ, where θ is the angle subtended between the
+        perpendicular axis and the line connecting observer to object. The observed fraction satisfies
+        sin²θ&nbsp;+&nbsp;(H_obs/H₀)²&nbsp;=&nbsp;1. I distinguish two distances: the
+        <strong>observed distance</strong> D (the projected horizontal separation, bounded) and the
+        <strong>proper distance</strong> D/cos&nbsp;θ (the true line-of-sight distance, unbounded).
+      </p>
+
+      <p class="theory-heading" style="margin-top: 8px;">Isomorphism with Length Contraction</p>
+      <p>
+        Lorentz length contraction states that the observed length of an object moving at coordinate
+        speed v is L&nbsp;=&nbsp;L₀√(1&nbsp;−&nbsp;v²/c²), satisfying
+        (v/c)²&nbsp;+&nbsp;(L/L₀)²&nbsp;=&nbsp;1. The coordinate speed v (bounded by c) and the
+        proper velocity γv (unbounded) stand in the same relationship as observed distance D and
+        proper distance D/cos&nbsp;θ: the proper quantity is the observed quantity scaled by the
+        same factor (γ&nbsp;=&nbsp;1/cos&nbsp;θ) that governs the spatial compression. Both systems
+        are described by the single relation <em>f(x)&nbsp;=&nbsp;1/√(1&nbsp;+&nbsp;x²)</em>,
+        where x is the normalized proper quantity and f is the observed fraction.
+      </p>
+
+      <table>
+        <tr>
+          <th></th>
+          <th>Length Contraction</th>
+          <th>Space Dilation</th>
+        </tr>
+        <tr>
+          <td>Unit / arc radius</td>
+          <td>c — speed of light</td>
+          <td>H₀ — true perpendicular size</td>
+        </tr>
+        <tr>
+          <td>Observed quantity</td>
+          <td>v — coordinate speed (bounded by c)</td>
+          <td>D — observed distance (bounded by H₀)</td>
+        </tr>
+        <tr>
+          <td>Proper quantity</td>
+          <td>γv — proper velocity (unbounded)</td>
+          <td>D / cos θ — proper distance (unbounded)</td>
+        </tr>
+        <tr>
+          <td>Normalized observed</td>
+          <td>β = v/c = sin θ</td>
+          <td>sin θ = D / √(D² + H₀²)</td>
+        </tr>
+        <tr>
+          <td>Observed fraction</td>
+          <td>L / L₀ = cos θ</td>
+          <td>H_obs / H₀ = cos θ</td>
+        </tr>
+        <tr>
+          <td>Scale factor</td>
+          <td>γ = 1 / cos θ</td>
+          <td>1 / cos θ</td>
+        </tr>
+      </table>
+
+      <p class="theory-heading" style="margin-top: 8px;">Space-Time Coupling</p>
+      <p>
+        In each system, the arc intersection encodes a spatial effect and a temporal effect
+        simultaneously, determined by the same angle θ. The character of the temporal coupling
+        differs between the two systems. In length contraction, time dilation is
+        <strong>multiplicative</strong>: the moving object's clock rate is reduced by a factor of
+        1/γ, where γ is read directly from the arc. In space dilation, the temporal effect is
+        <strong>additive</strong>: the observation is displaced D/c seconds into the past —
+        a look-back time that is itself determined by the same arc intersection that sets the
+        spatial scaling. In both cases, a single geometric quantity (the arc angle θ) simultaneously
+        determines what happens to the observed spatial measurement and what happens to time.
+      </p>
+
+      <table>
+        <tr>
+          <th></th>
+          <th>Length Contraction</th>
+          <th>Space Dilation</th>
+        </tr>
+        <tr>
+          <td>Spatial effect</td>
+          <td>L / L₀ = cos θ</td>
+          <td>H_obs / H₀ = cos θ</td>
+        </tr>
+        <tr>
+          <td>Temporal effect</td>
+          <td>Clock rate scales by 1/γ = cos θ</td>
+          <td>Observation origin shifts by D/c</td>
+        </tr>
+        <tr>
+          <td>Character</td>
+          <td>Multiplicative — rate changes</td>
+          <td>Additive — origin shifts</td>
+        </tr>
+        <tr>
+          <td>Determined by</td>
+          <td>Arc angle θ</td>
+          <td>Arc angle θ</td>
+        </tr>
+      </table>
+
+      <p class="theory-heading" style="margin-top: 8px;">Proposal</p>
+      <p>
+        I propose that Space Dilation is not a separate geometric phenomenon that happens to share
+        the mathematics of Lorentz Length Contraction — it is the same phenomenon, expressed without
+        velocity across static spatial separation. Length contraction is difficult to observe directly:
+        it requires relative velocities approaching c, which lie far outside ordinary experience.
+        Space Dilation, I conjecture, is the same structural effect with no velocity term —
+        observable in everyday perception whenever a measurement perpendicular to the line of sight
+        is viewed at a distance. I am not proposing an analogy. I am proposing that this
+        equivalence reveals an intricate relationship between static space and motion: the same arc
+        that governs what happens to measurement under relativistic velocity also governs what happens
+        to measurement under spatial separation alone, with no motion required. If correct, this
+        suggests that the relativistic structure of observation is not exclusive to motion — it is a
+        property of space itself.
+      </p>
+      <p>
+        I further note a striking asymmetry in how each domain treats time. When motion is present,
+        time is attenuated — the moving object's clock runs at a reduced rate (1/γ &lt; 1), and that
+        rate diminishes further as velocity increases. Motion appears to act against the passage of
+        time, progressively suppressing it as the arc angle grows. When motion is absent, as in Space
+        Dilation, time is not attenuated at all — it is merely displaced. The observer receives the
+        same undiminished flow of time, offset by D/c into the past. This distinction — between time
+        that is <strong>diminished by motion</strong> and time that is <strong>shifted by distance</strong>
+        — may itself be significant: it suggests that motion and static spatial separation engage
+        with time in fundamentally different ways, even as they produce identical spatial compressions
+        under the same arc.
+      </p>
+      <p>
+        This asymmetry connects to a deeper conservation principle. In special relativity, every
+        object moves through spacetime at a fixed total rate — the speed of light c — partitioned
+        between time and space. A stationary object expends its full allocation on the passage of
+        time. As velocity increases, that allocation transfers progressively to spatial motion,
+        reducing the rate of proper time accordingly. At v&nbsp;=&nbsp;c, the transfer is complete:
+        the entire allocation has become motion, and proper time ceases. The arc encodes this
+        conservation exactly: cos&nbsp;θ&nbsp;=&nbsp;1/γ is the fraction of the allocation remaining
+        in time; sin&nbsp;θ&nbsp;=&nbsp;v/c is the fraction that has become motion. Their squares
+        sum to unity — nothing is created or lost, only redistributed.
+      </p>
+      <p>
+        Under this interpretation, Space Dilation occupies a distinct position: it produces the same
+        spatial compression as length contraction while leaving the temporal allocation entirely
+        intact. Static spatial separation does not draw from the spacetime budget — it compresses
+        measurement without consuming any of time's force. I conjecture that this reveals something
+        fundamental about the relationship between space and motion: that the arc governing
+        relativistic observation under velocity is the same arc governing spatial observation at
+        rest, but the two domains make entirely different demands on time. One redistributes it.
+        The other leaves it whole.
+      </p>
+      <p>
+        To my knowledge, this identification has not been previously proposed in the literature.
+      </p>
+
+    </div>
   </div>
 
   <script>
@@ -816,6 +1031,18 @@
       mode = e.target.value;
       draw();
     });
+
+    function toggleTheory() {
+      const theory = document.querySelector('.theory');
+      const btn = document.getElementById('theory-toggle');
+      if (theory.dataset.mode === 'plain') {
+        theory.dataset.mode = 'scientific';
+        btn.textContent = 'Plain Language';
+      } else {
+        theory.dataset.mode = 'plain';
+        btn.textContent = 'Scientific';
+      }
+    }
 
     draw();
   </script>
